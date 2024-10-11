@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import logoImg from '../assets/logo.svg'
 
 interface NavMenuType {
@@ -11,19 +12,25 @@ const navMenuItems: NavMenuType[] = [
     link: '/',
   },
   {
-    title: 'cadastrar',
+    title: 'empresas parceiras',
     link: '/',
   },
   {
-    title: 'empresas parceiras',
-    link: '/',
+    title: 'entrar',
+    link: '/login',
+  },
+  {
+    title: 'cadastrar',
+    link: '/signup',
   },
 ]
 
 export function Header() {
   return (
     <header className="flex items-center justify-between py-8">
-      <img src={logoImg} alt="hug" width={32} />
+      <Link to={'/'}>
+        <img src={logoImg} alt="hug" width={32} />
+      </Link>
 
       <ul className="flex gap-4">
         {navMenuItems.map(({ title, link }) => {
@@ -32,9 +39,9 @@ export function Header() {
               key={title}
               className="cursor-pointer bg-laranjaSenac/70 px-4 py-1 rounded-full hover:bg-laranjaSenac"
             >
-              <a href={link} className="capitalize text-azulSenac font-medium">
+              <Link to={link} className="capitalize text-azulSenac font-medium">
                 {title}
-              </a>
+              </Link>
             </li>
           )
         })}
