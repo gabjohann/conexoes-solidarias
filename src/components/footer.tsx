@@ -48,7 +48,10 @@ export function Footer() {
           <p className="font-medium text-lg text-white mb-3">Links úteis</p>
           <ul className="space-y-3 text-white/70">
             {firstList.map(({ title, link }) => (
-              <li key={title} className="capitalize">
+              <li
+                key={title}
+                className="capitalize hover:text-white hover:font-medium"
+              >
                 <a href={link} className="cursor-pointer">
                   {title}
                 </a>
@@ -60,7 +63,10 @@ export function Footer() {
           <p className="font-medium text-lg text-white mb-3">Links úteis</p>
           <ul className="space-y-3 text-white/70">
             {secondList.map(({ title, link }) => (
-              <li key={title} className="capitalize">
+              <li
+                key={title}
+                className="capitalize hover:text-white hover:font-medium"
+              >
                 <a href={link} className="cursor-pointer">
                   {title}
                 </a>
@@ -74,7 +80,7 @@ export function Footer() {
 
       <div className="flex items-center justify-between">
         <p className="font-extralight text-white/70">
-          Copyright © 2024 - Senac Canoas
+          Copyright &copy; 2024 - Senac Canoas
         </p>
 
         <p className="font-extralight text-white/70">
