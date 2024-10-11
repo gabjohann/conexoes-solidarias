@@ -7,12 +7,12 @@ export function App() {
   const location = useLocation()
 
   return (
-    <div className="flex flex-col h-screen w-screen px-6">
+    <div className="flex flex-col w-screen h-screen px-6">
       <Header />
 
       <Outlet />
 
-      {location.pathname === '/signup' ? <MinFooter /> : <Footer />}
+      {location.pathname === '/' ? <Footer /> : <MinFooter />}
     </div>
   )
 }
