@@ -1,3 +1,4 @@
+import { Input } from '@/components/input'
 import {
   Table,
   TableBody,
@@ -6,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { useState } from 'react'
 
 type companiesType = {
   id: number
@@ -83,14 +85,6 @@ const registeredCompaniesList: companiesType[] = [
   },
   {
     id: 8,
-    city: 'Bento Gonçalves',
-    companyName: 'Vinícola Bella',
-    typeOfHelp: 'Doação',
-    name: 'Patrícia Souza',
-    contact: '(51) 97766-5432',
-  },
-  {
-    id: 9,
     city: 'Rio Grande',
     companyName: 'Pizzaria Marítima',
     typeOfHelp: 'Atendimento Psicológico',
@@ -98,7 +92,7 @@ const registeredCompaniesList: companiesType[] = [
     contact: '(51) 96655-4321',
   },
   {
-    id: 10,
+    id: 9,
     city: 'Santa Cruz do Sul',
     companyName: 'Cafeteria Aroma',
     typeOfHelp: 'Desconto',
@@ -106,7 +100,7 @@ const registeredCompaniesList: companiesType[] = [
     contact: '(51) 95544-3210',
   },
   {
-    id: 12,
+    id: 10,
     city: 'Bagé',
     companyName: 'Moda Gaúcha',
     typeOfHelp: 'Voluntariado',
@@ -114,7 +108,7 @@ const registeredCompaniesList: companiesType[] = [
     contact: '(51) 94443-2109',
   },
   {
-    id: 13,
+    id: 11,
     city: 'São Leopoldo',
     companyName: 'Auto Peças do Vale',
     typeOfHelp: 'Doação',
@@ -122,7 +116,7 @@ const registeredCompaniesList: companiesType[] = [
     contact: '(51) 93332-1098',
   },
   {
-    id: 14,
+    id: 12,
     city: 'Canoas',
     companyName: 'Clínica de Saúde',
     typeOfHelp: 'Atendimento Psicológico',
@@ -132,7 +126,55 @@ const registeredCompaniesList: companiesType[] = [
 ]
 
 export function RegisteredCompanies() {
+  const [filter, setFilter] = useState('')
+
+  const filteredCompanies = registeredCompaniesList.filter(
+    company =>
+      company.city.toLowerCase().includes(filter.toLowerCase()) ||
+      company.companyName.toLowerCase().includes(filter.toLowerCase()) ||
+      company.typeOfHelp.toLowerCase().includes(filter.toLowerCase()) ||
+      company.name.toLowerCase().includes(filter.toLowerCase()) ||
+      company.contact.includes(filter)
+  )
+
   return (
+    <div className="flex flex-col flex-1">
+      <input
+        type="text"
+        placeholder="Filtrar empresas..."
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+        className="w-2/5 px-3 py-2 mb-4 text-sm text-white bg-transparent border rounded-md outline-none border-laranjaSenac"
+      />
+
+      <Table className="text-white">
+        <TableHeader>
+          <TableRow>
+            {tableHeads.map(tableHead => (
+              <TableHead key={tableHead} className="font-bold capitalize">
+                {tableHead}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {filteredCompanies.map(
+            ({ id, city, companyName, typeOfHelp, name, contact }) => (
+              <TableRow key={id}>
+                <TableCell className="font-medium">{city}</TableCell>
+                <TableCell>{companyName}</TableCell>
+                <TableCell>{typeOfHelp}</TableCell>
+                <TableCell>{name}</TableCell>
+                <TableCell>{contact}</TableCell>
+              </TableRow>
+            )
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  )
+
+  /*  return (
     <div className="flex flex-1">
       <Table className="text-white">
         <TableHeader>
@@ -159,5 +201,5 @@ export function RegisteredCompanies() {
         </TableBody>
       </Table>
     </div>
-  )
+  ) */
 }
