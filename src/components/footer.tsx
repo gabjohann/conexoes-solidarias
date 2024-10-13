@@ -13,11 +13,11 @@ const footerMenuItems: FooterMenuType[] = [
   },
   {
     title: 'se cadastre',
-    link: '/',
+    link: '/signup',
   },
   {
     title: 'nossos parceiros',
-    link: '/',
+    link: '/registeredCompanies',
   },
   {
     title: 'seja um parceiro',
@@ -37,7 +37,7 @@ export function Footer() {
         <div className="flex flex-col gap-3">
           <div className="flex gap-3">
             <img src={logoImg} alt="hug" width={18} />
-            <h1 className="text-laranjaSenac font-semibold text-2xl">
+            <h1 className="text-2xl font-semibold text-laranjaSenac">
               Conexões Solidárias
             </h1>
           </div>
@@ -45,7 +45,7 @@ export function Footer() {
           <p className="text-white/70">Reconstruindo o Rio Grande do Sul.</p>
         </div>
         <div className="flex flex-col space-y-3">
-          <p className="font-medium text-lg text-white mb-3">Links úteis</p>
+          <p className="mb-3 text-lg font-medium text-white">Links úteis</p>
           <ul className="space-y-3 text-white/70">
             {firstList.map(({ title, link }) => (
               <li
@@ -60,7 +60,7 @@ export function Footer() {
           </ul>
         </div>
         <div className="flex flex-col">
-          <p className="font-medium text-lg text-white mb-3">Links úteis</p>
+          <p className="mb-3 text-lg font-medium text-white">Links úteis</p>
           <ul className="space-y-3 text-white/70">
             {secondList.map(({ title, link }) => (
               <li

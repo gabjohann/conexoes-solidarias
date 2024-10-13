@@ -6,6 +6,7 @@ import { Home } from './routes/home'
 import { SignUpForm } from './routes/signup'
 import './index.css'
 import { LoginForm } from './routes/login'
+import { RegisteredCompanies } from './routes/registered_companies'
 
 const routes = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const routes = createBrowserRouter([
       {
         path: 'login',
         element: <LoginForm />,
+      },
+      {
+        path: 'registeredCompanies',
+        element: <RegisteredCompanies />,
       },
     ],
   },
