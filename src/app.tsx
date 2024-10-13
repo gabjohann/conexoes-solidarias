@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { Footer } from './components/footer'
 import { Header } from './components/header'
-import { MinFooter } from './components/minFooter'
+import { MinFooter } from './components/min-footer'
 
 export function App() {
   const location = useLocation()
