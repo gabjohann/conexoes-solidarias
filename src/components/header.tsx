@@ -38,12 +38,16 @@ export function Header() {
 
       <ul className="flex gap-4">
         {navMenuItems.slice(startIndex).map(({ title, link }) => {
+          const isActive = location.pathname === link
           return (
             <li
               key={title}
-              className="px-4 py-1 rounded-full cursor-pointer bg-laranjaSenac/70 hover:bg-laranjaSenac"
+              className={`px-4 py-1 rounded-full cursor-pointer ${isActive ? 'bg-laranjaSenac' : 'bg-laranjaSenac/70'} hover:bg-laranjaSenac`}
             >
-              <Link to={link} className="font-medium capitalize text-azulSenac">
+              <Link
+                to={link}
+                className={`font-medium capitalize text-azulSenac ${isActive && 'font-semibold'}`}
+              >
                 {title}
               </Link>
             </li>
