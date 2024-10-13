@@ -24,11 +24,7 @@ const registerEnterpriseFormSchema = z.object({
 type RegisterEnterpriseFormData = z.infer<typeof registerEnterpriseFormSchema>
 
 export function CompanySignUpForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterEnterpriseFormData>({
+  const { register, handleSubmit } = useForm<RegisterEnterpriseFormData>({
     resolver: zodResolver(registerEnterpriseFormSchema),
   })
 
