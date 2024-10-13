@@ -1,4 +1,3 @@
-import { Input } from '@/components/input'
 import {
   Table,
   TableBody,
