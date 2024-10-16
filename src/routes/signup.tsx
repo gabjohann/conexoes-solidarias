@@ -6,8 +6,8 @@ export function SignUpForm() {
   return (
     <div className="flex items-center flex-1">
       <div className="flex-col flex-1">
-        <Tabs defaultValue="beneficiary">
-          <TabsList className="mb-10">
+        <Tabs defaultValue="company">
+          <TabsList className="mb-8">
             <TabsTrigger value="beneficiary">Beneficiário</TabsTrigger>
             <TabsTrigger value="company">Empresa</TabsTrigger>
           </TabsList>
