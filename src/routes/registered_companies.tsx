@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -6,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { useState } from 'react'
 
 type companiesType = {
   id: number
@@ -126,8 +126,35 @@ const registeredCompaniesList: companiesType[] = [
 
 export function RegisteredCompanies() {
   const [filter, setFilter] = useState('')
+  const [companies, setCompanies] = useState<companiesType[]>(
+    registeredCompaniesList
+  )
+  const hasLoaded = useRef(false)
 
-  const filteredCompanies = registeredCompaniesList.filter(
+  useEffect(() => {
+    if (hasLoaded.current) return // Se já carregou, sai da função
+    hasLoaded.current = true // Marca como carregado
+
+    const storedData = localStorage.getItem('registerCompany')
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData)
+        const newCompany: companiesType = {
+          id: companies.length + 1, // ou outra lógica para gerar IDs únicos
+          city: parsedData.city,
+          companyName: parsedData.socialReason,
+          typeOfHelp: 'N/A',
+          name: parsedData.name,
+          contact: parsedData.phoneNumber,
+        }
+        setCompanies(prevCompanies => [...prevCompanies, newCompany])
+      } catch (error) {
+        console.error('Erro ao analisar os dados do localStorage:', error)
+      }
+    }
+  }, [])
+
+  const filteredCompanies = companies.filter(
     company =>
       company.city.toLowerCase().includes(filter.toLowerCase()) ||
       company.companyName.toLowerCase().includes(filter.toLowerCase()) ||
@@ -172,33 +199,4 @@ export function RegisteredCompanies() {
       </Table>
     </div>
   )
-
-  /*  return (
-    <div className="flex flex-1">
-      <Table className="text-white">
-        <TableHeader>
-          <TableRow>
-            {tableHeads.map(tableHead => (
-              <TableHead key={tableHead} className="font-bold capitalize">
-                {tableHead}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {registeredCompaniesList.map(
-            ({ id, city, companyName, typeOfHelp, name, contact }) => (
-              <TableRow key={id}>
-                <TableCell className="font-medium">{city}</TableCell>
-                <TableCell>{companyName}</TableCell>
-                <TableCell>{typeOfHelp}</TableCell>
-                <TableCell>{name}</TableCell>
-                <TableCell>{contact}</TableCell>
-              </TableRow>
-            )
-          )}
-        </TableBody>
-      </Table>
-    </div>
-  ) */
 }
