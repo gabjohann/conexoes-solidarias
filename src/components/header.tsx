@@ -15,10 +15,10 @@ const navMenuItems: NavMenuType[] = [
     title: 'empresas parceiras',
     link: '/registeredCompanies',
   },
-  {
+  /* {
     title: 'entrar',
     link: '/login',
-  },
+  }, */
   {
     title: 'cadastrar',
     link: '/signup',
