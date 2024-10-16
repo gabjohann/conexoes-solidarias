@@ -44,7 +44,7 @@ export function Footer() {
           <p className="text-white/70">Conectando pessoas e empresas.</p>
           <p className="text-white/70">Reconstruindo o Rio Grande do Sul.</p>
         </div>
-        <div className="flex flex-col space-y-3">
+        {/*         <div className="flex flex-col space-y-3">
           <p className="mb-3 text-lg font-medium text-white">Links úteis</p>
           <ul className="space-y-3 text-white/70">
             {firstList.map(({ title, link }) => (
@@ -58,7 +58,7 @@ export function Footer() {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
         <div className="flex flex-col">
           <p className="mb-3 text-lg font-medium text-white">Links úteis</p>
           <ul className="space-y-3 text-white/70">
