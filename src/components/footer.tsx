@@ -7,10 +7,6 @@ interface FooterMenuType {
 }
 
 const footerMenuItems: FooterMenuType[] = [
-  /*  {
-    title: 'quem somos',
-    link: '/',
-  }, */
   {
     title: 'se cadastre',
     link: '/signup',
@@ -19,16 +15,7 @@ const footerMenuItems: FooterMenuType[] = [
     title: 'nossos parceiros',
     link: '/registeredCompanies',
   },
-  /*  {
-    title: 'seja um parceiro',
-    link: '/',
-  }, */
 ]
-
-/* const [firstList, secondList] = [
-  footerMenuItems.slice(0, 2),
-  footerMenuItems.slice(2),
-] */
 
 export function Footer() {
   return (
@@ -44,25 +31,10 @@ export function Footer() {
           <p className="text-white/70">Conectando pessoas e empresas.</p>
           <p className="text-white/70">Reconstruindo o Rio Grande do Sul.</p>
         </div>
-        {/*         <div className="flex flex-col space-y-3">
-          <p className="mb-3 text-lg font-medium text-white">Links úteis</p>
-          <ul className="space-y-3 text-white/70">
-            {firstList.map(({ title, link }) => (
-              <li
-                key={title}
-                className="capitalize hover:text-white hover:font-medium"
-              >
-                <a href={link} className="cursor-pointer">
-                  {title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div> */}
+
         <div className="flex flex-col">
           <p className="mb-3 text-lg font-medium text-white">Links úteis</p>
           <ul className="space-y-3 text-white/70">
-            {/*    {secondList.map(({ title, link }) => ( */}
             {footerMenuItems.map(({ title, link }) => (
               <li
                 key={title}
