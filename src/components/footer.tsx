@@ -1,5 +1,6 @@
 import { Separator } from './ui/separator'
 import logoImg from '../assets/logo.svg'
+import { Link } from 'react-router-dom'
 
 interface FooterMenuType {
   title: string
@@ -40,9 +41,9 @@ export function Footer() {
                 key={title}
                 className="capitalize hover:text-white hover:font-medium"
               >
-                <a href={link} className="cursor-pointer">
+                <Link to={link} className="cursor-pointer">
                   {title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
