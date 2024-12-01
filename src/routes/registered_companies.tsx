@@ -7,6 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { Pencil } from 'lucide-react'
+import { Input } from '@/components/input'
 
 type companiesType = {
   id: number
@@ -23,6 +25,7 @@ const tableHeads = [
   'tipo de ajuda',
   'nome',
   'contato',
+  '',
 ]
 
 const registeredCompaniesList: companiesType[] = [
@@ -129,18 +132,21 @@ export function RegisteredCompanies() {
   const [companies, setCompanies] = useState<companiesType[]>(
     registeredCompaniesList
   )
+  const [editCompany, setEditCompany] = useState<companiesType | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const hasLoaded = useRef(false)
 
   useEffect(() => {
-    if (hasLoaded.current) return // Se já carregou, sai da função
-    hasLoaded.current = true // Marca como carregado
+    if (hasLoaded.current) return
+    hasLoaded.current = true
 
     const storedData = localStorage.getItem('registerCompany')
     if (storedData) {
       try {
         const parsedData = JSON.parse(storedData)
         const newCompany: companiesType = {
-          id: companies.length + 1, // ou outra lógica para gerar IDs únicos
+          id: companies.length + 1,
           city: parsedData.city,
           companyName: parsedData.socialReason,
           typeOfHelp: 'N/A',
@@ -152,7 +158,7 @@ export function RegisteredCompanies() {
         console.error('Erro ao analisar os dados do localStorage:', error)
       }
     }
-  }, [])
+  }, [companies])
 
   const filteredCompanies = companies.filter(
     company =>
@@ -163,6 +169,28 @@ export function RegisteredCompanies() {
       company.contact.includes(filter)
   )
 
+  const saveEdit = () => {
+    if (editCompany) {
+      setCompanies(prevCompanies =>
+        prevCompanies.map(company =>
+          company.id === editCompany.id ? editCompany : company
+        )
+      )
+      setIsModalOpen(false)
+      setEditCompany(null)
+    }
+  }
+
+  const cancelEdit = () => {
+    setIsModalOpen(false)
+    setEditCompany(null)
+  }
+
+  const openModal = (company: companiesType) => {
+    setEditCompany(company)
+    setIsModalOpen(true)
+  }
+
   return (
     <div className="flex flex-col flex-1">
       <input
@@ -172,6 +200,95 @@ export function RegisteredCompanies() {
         onChange={e => setFilter(e.target.value)}
         className="w-2/5 px-3 py-2 mb-4 text-sm text-white bg-transparent border rounded-md outline-none border-laranjaSenac"
       />
+
+      {/* Modal de Edição */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="p-6 bg-gray-800 rounded-lg w-96">
+            <h3 className="mb-4 text-lg font-semibold text-white">
+              Editar dados da empresa
+            </h3>
+            <Input
+              type="text"
+              value={editCompany?.city || ''} // Usando optional chaining (?.) e fallback para uma string vazia
+              onChange={e =>
+                setEditCompany(prevCompany =>
+                  prevCompany ? { ...prevCompany, city: e.target.value } : null
+                )
+              }
+              className="w-full p-2 mb-3 border border-white/40"
+              placeholder="Cidade"
+            />
+            <Input
+              type="text"
+              value={editCompany?.companyName || ''} // Usando fallback para evitar undefined
+              onChange={e =>
+                setEditCompany(prevCompany =>
+                  prevCompany
+                    ? { ...prevCompany, companyName: e.target.value }
+                    : null
+                )
+              }
+              className="w-full p-2 mb-3 border border-white/40"
+              placeholder="Nome da Empresa"
+            />
+            <Input
+              type="text"
+              value={editCompany?.typeOfHelp || ''} // Mesmo para todos os campos
+              onChange={e =>
+                setEditCompany(prevCompany =>
+                  prevCompany
+                    ? { ...prevCompany, typeOfHelp: e.target.value }
+                    : null
+                )
+              }
+              className="w-full p-2 mb-3 border border-white/40"
+              placeholder="Tipo de Ajuda"
+            />
+            <Input
+              type="text"
+              value={editCompany?.name || ''}
+              onChange={e =>
+                setEditCompany(prevCompany =>
+                  prevCompany ? { ...prevCompany, name: e.target.value } : null
+                )
+              }
+              className="w-full p-2 mb-3 border border-white/40"
+              placeholder="Nome do Contato"
+            />
+            <Input
+              type="text"
+              value={editCompany?.contact || ''}
+              onChange={e =>
+                setEditCompany(prevCompany =>
+                  prevCompany
+                    ? { ...prevCompany, contact: e.target.value }
+                    : null
+                )
+              }
+              className="w-full p-2 mb-2 border border-white/40"
+              placeholder="Contato"
+            />
+
+            <div className="flex gap-4 mt-4">
+              <button
+                type="button"
+                onClick={saveEdit}
+                className="px-4 py-2 text-white rounded-md bg-laranjaSenac"
+              >
+                Salvar
+              </button>
+              <button
+                type="button"
+                onClick={cancelEdit}
+                className="px-4 py-2 text-white bg-gray-700 rounded-md"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Table className="text-white">
         <TableHeader>
@@ -192,6 +309,24 @@ export function RegisteredCompanies() {
                 <TableCell>{typeOfHelp}</TableCell>
                 <TableCell>{name}</TableCell>
                 <TableCell>{contact}</TableCell>
+                <TableCell>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      openModal({
+                        id,
+                        city,
+                        companyName,
+                        typeOfHelp,
+                        name,
+                        contact,
+                      })
+                    }
+                    className="text-white/50"
+                  >
+                    <Pencil size={18} />
+                  </button>
+                </TableCell>
               </TableRow>
             )
           )}
