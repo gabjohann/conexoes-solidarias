@@ -1,8 +1,7 @@
 import { Separator } from './ui/separator'
 import logoImg from '../assets/logo.svg'
-import { Link } from 'react-router-dom'
 
-interface FooterMenuType {
+/* interface FooterMenuType {
   title: string
   link: string
 }
@@ -16,7 +15,7 @@ const footerMenuItems: FooterMenuType[] = [
     title: 'nossos parceiros',
     link: '/registeredCompanies',
   },
-]
+] */
 
 export function Footer() {
   return (
@@ -33,7 +32,7 @@ export function Footer() {
           <p className="text-white/70">Reconstruindo o Rio Grande do Sul.</p>
         </div>
 
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <p className="mb-3 text-lg font-medium text-white">Links úteis</p>
           <ul className="space-y-3 text-white/70">
             {footerMenuItems.map(({ title, link }) => (
@@ -47,7 +46,7 @@ export function Footer() {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </div>
 
       <Separator className="my-8 bg-laranjaSenac" />

@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logoImg from '../assets/logo.svg'
 
 interface NavMenuType {
@@ -8,17 +8,9 @@ interface NavMenuType {
 
 const navMenuItems: NavMenuType[] = [
   {
-    title: 'sobre',
-    link: '/',
-  },
-  {
-    title: 'empresas parceiras',
-    link: '/registeredCompanies',
-  },
-  /* {
     title: 'entrar',
     link: '/login',
-  }, */
+  },
   {
     title: 'cadastrar',
     link: '/signup',
@@ -26,9 +18,14 @@ const navMenuItems: NavMenuType[] = [
 ]
 
 export function Header() {
+  const navigate = useNavigate()
   const location = useLocation()
+  const isLoggedIn = localStorage.getItem('conexoes-solidariasLogin') === 'true'
 
-  const startIndex = location.pathname === '/' ? 1 : 0
+  function handleLogOut() {
+    localStorage.removeItem('conexoes-solidariasLogin')
+    navigate('/', { replace: true })
+  }
 
   return (
     <header className="flex items-center justify-between py-8">
@@ -36,24 +33,35 @@ export function Header() {
         <img src={logoImg} alt="hug" width={32} />
       </Link>
 
-      <ul className="flex gap-4">
-        {navMenuItems.slice(startIndex).map(({ title, link }) => {
-          const isActive = location.pathname === link
-          return (
-            <li
-              key={title}
-              className={`px-4 py-1 rounded-full cursor-pointer ${isActive ? 'bg-laranjaSenac' : 'bg-laranjaSenac/70'} hover:bg-laranjaSenac`}
-            >
-              <Link
-                to={link}
-                className={`font-medium capitalize text-azulSenac ${isActive && 'font-semibold'}`}
+      {!isLoggedIn ? (
+        <ul className="flex gap-4">
+          {navMenuItems.map(({ title, link }) => {
+            const isActive = location.pathname === link
+
+            return (
+              <li
+                key={title}
+                className={`px-4 py-1 rounded-full cursor-pointer ${isActive ? 'bg-laranjaSenac' : 'bg-laranjaSenac/70'} hover:bg-laranjaSenac`}
               >
-                {title}
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
+                <Link
+                  to={link}
+                  className={`font-medium capitalize text-azulSenac ${isActive && 'font-semibold'}`}
+                >
+                  {title}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      ) : (
+        <button
+          type="button"
+          onClick={handleLogOut}
+          className="px-4 py-1 font-medium capitalize rounded-full cursor-pointer bg-laranjaSenac hover:bg-laranjaSenac/70 text-azulSenac"
+        >
+          Sair
+        </button>
+      )}
     </header>
   )
 }
