@@ -304,7 +304,10 @@ export function CompanySignUpForm() {
               <option value="" disabled selected hidden>
                 Serviço prestado
               </option>
-              <option className="border bg-azulSena" value="discount">
+              <option className="border bg-azulSenac" value="course">
+                Cursos
+              </option>
+              <option className="border bg-azulSenac" value="discount">
                 Desconto
               </option>
               <option className="bg-azulSenac" value="donation">
